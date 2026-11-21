@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "doublemod",
+  "version": "1.0.0",
+  "name": "Double Item",
+  "description": "Press B to double the item in your hand.",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.example.doublemod.DoubleMod"],
+    "client": ["com.example.doublemod.DoubleModClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
