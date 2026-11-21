@@ -1,5 +1,13 @@
 name: build
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -18,7 +26,17 @@ jobs:
 
       - run: gradle build
 
+      - name: Remove sources jar
+        run: rm -f build/libs/*-sources.jar
+
       - uses: actions/upload-artifact@v4
         with:
           name: doublemod
           path: build/libs/*.jar
+
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/*.jar
+          generate_release_notes: true
